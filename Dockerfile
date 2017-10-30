@@ -1,21 +1,9 @@
-FROM jsurf/rpi-raspbian:latest
-RUN ["cross-build-start"]
+FROM wakeup706/rpi-python
 
-# Install dependencies
 RUN apt-get update && apt-get install -y \
-    python \
-    python-dev \
-    --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+    gcc
 
-RUN mkdir -p /data
-COPY data /data
+RUN pip install rpi.gpio
 
-# Define working directory
 WORKDIR /data
-
-# install pip
-RUN python get-pip.py
-
-# Define default command
-CMD ["bash"]
+CMD [ "bash" ]
